@@ -82,7 +82,7 @@ with tf.Session() as sess:
 
     # And now for some fizz buzz
     numbers = np.arange(1, 101)
-    teX = np.transpose(to_binary(numbers, NUM_DIGITS))
+    teX = np.transpose(binary_encode(numbers, NUM_DIGITS))
     teY = sess.run(predict_op, feed_dict={X: teX})
     output = np.vectorize(fizz_buzz)(numbers, teY)
 
