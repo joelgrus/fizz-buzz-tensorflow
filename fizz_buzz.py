@@ -39,7 +39,7 @@ X = tf.placeholder("float", [None, NUM_DIGITS])
 Y = tf.placeholder("float", [None, 4])
 
 # How many units in the hidden layer.
-NUM_HIDDEN = 100
+NUM_HIDDEN = 5000
 
 # Initialize the weights.
 w_h = init_weights([NUM_DIGITS, NUM_HIDDEN])
