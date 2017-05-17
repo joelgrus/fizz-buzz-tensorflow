@@ -30,9 +30,9 @@ def init_weights(shape):
 # Our model is a standard 1-hidden-layer multi-layer-perceptron with ReLU
 # activation. The softmax (which turns arbitrary real-valued outputs into
 # probabilities) gets applied in the cost function.
-def model(X, w_h, w_o):
-    h = tf.nn.relu(tf.matmul(X, w_h))
-    return tf.matmul(h, w_o)
+def model(X, w_h, b_h, w_o, b_o):
+    h = tf.nn.relu(tf.matmul(X, w_h) + b_h)
+    return tf.matmul(h, w_o) + b_o
 
 # Our variables. The input has width NUM_DIGITS, and the output has width 4.
 X = tf.placeholder("float", [None, NUM_DIGITS])
@@ -43,10 +43,12 @@ NUM_HIDDEN = 100
 
 # Initialize the weights.
 w_h = init_weights([NUM_DIGITS, NUM_HIDDEN])
+b_h = init_weights([NUM_HIDDEN])
 w_o = init_weights([NUM_HIDDEN, 4])
+b_o = init_weights([4])
 
 # Predict y given x using the model.
-py_x = model(X, w_h, w_o)
+py_x = model(X, w_h, b_h, w_o, b_o)
 
 # We'll train our model by minimizing a cost function.
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(py_x, Y))
